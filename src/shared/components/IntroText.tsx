@@ -7,11 +7,12 @@ interface Props {
   title: string;
   subtitle?: string;
   hideAtEnd?: boolean;
+  position: "top" | "bottom";
 }
 
-const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd }) => {
+const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
   const [boundBoxSpring, boundBoxSpringAPI] = useSpring(() => ({
     from: { x: isSmall ? "10%" : "50%" },
     config: { mass: 5, tension: 350, friction: 40 },
@@ -46,7 +47,7 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd }) => {
 
     if (hideAtEnd) {
       setTimeout(() => {
-        boundBoxSpringAPI.start({ x: "50%" });
+        boundBoxSpringAPI.start({ x: isSmall ? "5%" : "50%" });
       }, 4000);
       setTimeout(() => {
         titleSpringAPI.start({ y: 200 });
@@ -64,7 +65,8 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd }) => {
     <Box
       sx={{
         position: "absolute",
-        bottom: "5%",
+        bottom: position === "bottom" ? "5%" : !isSmall ? "89%" : `calc(100% - ${theme.spacing(9)})`,
+        left: position === "bottom" ? "0%" : !isSmall ? "12%" : "0%",
         display: "flex",
         overflow: "hidden",
         width: "100%",

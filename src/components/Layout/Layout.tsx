@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import Navbar from "components/Navbar/Navbar";
 import Logo from "images/logo/avatar.png";
 import { useLocation } from "react-router-dom";
@@ -9,6 +9,8 @@ interface Props {
 }
 const Layout: FC<Props> = ({ children }) => {
   const location = useLocation();
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
       sx={{
@@ -24,8 +26,8 @@ const Layout: FC<Props> = ({ children }) => {
         <>
           <Navbar />
           <img
-            width={400}
-            height={400}
+            width={isSmall ? 300 : 400}
+            height={isSmall ? 300 : 400}
             src={Logo}
             style={{
               zIndex: 1,

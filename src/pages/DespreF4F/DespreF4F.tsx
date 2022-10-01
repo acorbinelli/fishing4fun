@@ -4,7 +4,7 @@ import IntroText from "shared/components/IntroText";
 const DespreF4F = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between", height: "100%" }}>
-      <IntroText title="Despre F4F" subtitle="" />
+      <IntroText title="Despre F4F" subtitle="" position="top" />
       <Box>MAIN</Box>
     </Box>
   );

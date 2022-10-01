@@ -1,46 +1,58 @@
 import { ReactElement } from "react";
 import Acasa from "pages/Acasa";
+import Blog from "pages/Blog";
+import Contact from "pages/Contact";
+import DespreF4F from "pages/DespreF4F";
+import Dunarea from "pages/Dunarea";
+import Info from "pages/Info";
+import LandingPage from "pages/LandingPage";
+import Tutoriale from "pages/Tutoriale";
 
-export interface AppRoute{
-    name: string;
-    element: ReactElement;
-    pathName: string;
+export interface AppRoute {
+  name: string;
+  element: ReactElement;
+  pathName: string;
 }
 
-export const appRoutes:AppRoute[]=[
-    {
-        name: "ACASA",
-        element: <Acasa/>,
-        pathName: "/"
-    },
-    {
-        name: "DUNAREA",
-        element: <div>HELLO FROM DUNAREA PAGE</div>,
-        pathName: "/dunarea"
-    },
-    {
-        name: "TUTORIALE",
-        element: <div>HELLO FROM TUTORIALE PAGE</div>,
-        pathName: "/tutoriale"
-    },
-    {
-        name: "BLOG",
-        element: <div>HELLO FROM BLOG PAGE</div>,
-        pathName: "/blog"
-    },
-    {
-        name: "INFO",
-        element: <div>HELLO FROM INFO PAGE</div>,
-        pathName: "/info"
-    },
-    {
-        name: "DESPRE F4F",
-        element: <div>HELLO FROM DESPRE F4F PAGE</div>,
-        pathName: "/despre-f4f"
-    },
-    {
-        name: "CONTACT",
-        element: <div>HELLO FROM CONTACT PAGE</div>,
-        pathName: "/contact"
-    },
-]
+export const appRoutes: AppRoute[] = [
+  {
+    name: "LandingPage",
+    element: <LandingPage />,
+    pathName: "/",
+  },
+  {
+    name: "ACASA",
+    element: <Acasa />,
+    pathName: "/acasa",
+  },
+  {
+    name: "DUNAREA",
+    element: <Dunarea />,
+    pathName: "/dunarea",
+  },
+  {
+    name: "TUTORIALE",
+    element: <Tutoriale />,
+    pathName: "/tutoriale",
+  },
+  {
+    name: "BLOG",
+    element: <Blog />,
+    pathName: "/blog",
+  },
+  {
+    name: "INFO",
+    element: <Info />,
+    pathName: "/info",
+  },
+  {
+    name: "DESPRE F4F",
+    element: <DespreF4F />,
+    pathName: "/despre-f4f",
+  },
+  {
+    name: "CONTACT",
+    element: <Contact />,
+    pathName: "/contact",
+  },
+];

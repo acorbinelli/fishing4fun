@@ -2,9 +2,6 @@ import { Box, Button, Typography, Slide, IconButton, Fade } from "@mui/material"
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { appRoutes } from "routes";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 const Navbar = () => {
@@ -50,6 +47,7 @@ const Navbar = () => {
             flexDirection: "column",
             alignItems: "flex-start",
             position: "absolute",
+            zIndex: 2,
             top: "25%",
             transform: "translate(-50%,-50%)",
           }}

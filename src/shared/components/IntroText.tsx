@@ -70,6 +70,7 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
         display: "flex",
         overflow: "hidden",
         width: "80%",
+        zIndex: 2,
       }}
     >
       <animated.div style={boundBoxSpring}>

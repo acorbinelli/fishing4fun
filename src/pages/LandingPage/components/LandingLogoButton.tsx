@@ -15,8 +15,8 @@ const LandingLogoButton: FC<Props> = ({ onLogoClick }) => {
   const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
   const [landingLogoSpring, landingLogoApi] = useSpring(() => ({
     from: {
-      width: theme.spacing(30),
-      height: theme.spacing(30),
+      width: theme.spacing(isSmall ? 30 : 50),
+      height: theme.spacing(isSmall ? 30 : 50),
       rotateY: 0,
       rotateX: 0,
       y: 0,
@@ -85,8 +85,8 @@ const LandingLogoButton: FC<Props> = ({ onLogoClick }) => {
       onMouseOver={onLandingLogoHover}
       onMouseOut={onLandingLogoLeave}
       sx={{
-        width: (theme) => theme.spacing(isSmall ? 30 : 45),
-        height: (theme) => theme.spacing(isSmall ? 15 : 30),
+        width: (theme) => theme.spacing(isSmall ? 30 : 50),
+        height: (theme) => theme.spacing(isSmall ? 15 : 35),
       }}
     >
       <animated.img style={landingLogoSpring} src={Logo} />

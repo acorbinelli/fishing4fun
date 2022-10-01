@@ -26,16 +26,15 @@ const Layout: FC<Props> = ({ children }) => {
         <>
           <Navbar />
           <img
-            width={isSmall ? 300 : 400}
-            height={isSmall ? 300 : 400}
+            width={isSmall ? 200 : 300}
+            height={isSmall ? 200 : 300}
             src={Logo}
             style={{
               zIndex: 1,
               position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              opacity: 0.1,
+              bottom: "0%",
+              right: "0%",
+              opacity: 0.2,
             }}
           />
         </>

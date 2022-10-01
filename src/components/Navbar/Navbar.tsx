@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <Box sx={{ position: "relative", height: "100%", flex: 1 }}>
+    <Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
       {!isSmall && (
         <Slide
           in={isOpen}

@@ -85,7 +85,14 @@ const Navbar = () => {
         <Drawer
           anchor="right"
           PaperProps={{
-            sx: { py: 2, px: 1, width: "50%", display: "flex", flexDirection: "column", alignItems: "center" },
+            sx: {
+              py: 4,
+              px: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+            },
           }}
           open={isOpen}
         >
@@ -93,7 +100,6 @@ const Navbar = () => {
             size="large"
             sx={{
               border: "1px solid #2C548A",
-              mb: 5,
               width: (theme) => theme.spacing(5),
               height: (theme) => theme.spacing(5),
               zIndex: 11,
@@ -107,16 +113,14 @@ const Navbar = () => {
               return (
                 <Button
                   key={index}
-                  fullWidth
                   size="small"
                   variant="text"
                   onClick={() => onMenuItemClick(route.pathName)}
                   sx={{
-                    mb: 2,
                     color: "primary",
                     fontSize: (theme) => theme.typography.h6.fontSize,
                     borderBottom:
-                      location.pathname.toLowerCase() === route.pathName.toLowerCase() ? "2px solid white" : "none",
+                      location.pathname.toLowerCase() === route.pathName.toLowerCase() ? "2px solid #2C548A" : "none",
                   }}
                 >
                   {route.name}

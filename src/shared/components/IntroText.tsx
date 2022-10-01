@@ -65,11 +65,11 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
     <Box
       sx={{
         position: "absolute",
-        bottom: position === "bottom" ? "5%" : !isSmall ? "89%" : `calc(100% - ${theme.spacing(9)})`,
-        left: position === "bottom" ? "0%" : !isSmall ? "12%" : "0%",
+        bottom: position === "bottom" ? "10%" : !isSmall ? "89%" : `calc(100% - ${theme.spacing(8)})`,
+        left: position === "bottom" ? "0%" : !isSmall ? "8%" : "0%",
         display: "flex",
         overflow: "hidden",
-        width: "100%",
+        width: "80%",
       }}
     >
       <animated.div style={boundBoxSpring}>
@@ -107,16 +107,19 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{ overflow: "hidden" }}>
               <animated.div style={titleSpring}>
-                <Typography variant="h3" sx={{ fontWeight: 500, color: "primary.light" }}>
-                  {title}
+                <Typography
+                  variant={isSmall ? "h5" : "h3"}
+                  sx={{ letterSpacing: 5, fontWeight: 500, color: "primary.light" }}
+                >
+                  {title.toUpperCase()}
                 </Typography>
               </animated.div>
             </Box>
 
             <Box sx={{ overflow: "hidden" }}>
               <animated.div style={subtitleSpring}>
-                <Typography variant="h4" sx={{ fontWeight: 500, color: "warning.main" }}>
-                  {subtitle}
+                <Typography variant={isSmall ? "h6" : "h4"} sx={{ fontWeight: 500, color: "warning.main" }}>
+                  {subtitle?.toUpperCase()}
                 </Typography>
               </animated.div>
             </Box>

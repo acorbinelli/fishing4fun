@@ -21,7 +21,7 @@ const LandingPage = () => {
         position: "relative",
       }}
     >
-      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd />
+      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd position="bottom" />
       <LandingLogoButton onLogoClick={onLogoClick} />
     </Box>
   );

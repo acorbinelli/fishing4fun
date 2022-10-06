@@ -8,7 +8,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const onLogoClick = useCallback(() => {
     navigate("/Acasa");
-  }, []);
+  }, [navigate]);
 
   return (
     <Box
@@ -16,13 +16,14 @@ const LandingPage = () => {
         height: "100%",
         width: "100%",
         display: "flex",
+        flexDirection:'column',
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
       }}
     >
-      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd position="bottom" />
       <LandingLogoButton onLogoClick={onLogoClick} />
+      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd position="bottom" />
     </Box>
   );
 };

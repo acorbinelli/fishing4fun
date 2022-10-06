@@ -26,56 +26,48 @@ const Acasa = () => {
     config: { mass: 2, tension: 300, friction: 40, bounce: 1 },
   }));
   return (
-    <Box sx={{ height: "100%", overflowY: "auto", zIndex: 2, width: "100%", position: "relative" }}>
+    <>
       <animated.div style={{ ...pictureSpring, position: "absolute", width: "100%", height: "100%", zIndex: 3 }} />
       <IntroText title="Acasa" subtitle="" position="top" />
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-end",
+          alignItems: "flex-start",
           position: "absolute",
-          top: isSmall ? "60%" : "50%",
+          top: "50%",
           transform: "translateY(-50%)",
           zIndex: 22,
           px: 4,
+          pl: isSmall ? 5 : 30,
         }}
       >
         <Typography
-          variant="h3"
+          variant={isSmall ? "h5" : "h3"}
           sx={{
             color: "primary.light",
-            textAlign: isSmall ? "left" : "right",
-            zIndex: 2,
-            maxWidth: isSmall ? "100%" : `calc(100% - ${theme.spacing(25)})`,
+            textAlign: "left",
+            width:'100%',
+            mb: 2,
           }}
         >
           Fishing 4 Fun vă va purta într-o călătorie fascinantă pe Dunăre.
         </Typography>
-        <Box
+
+        <Typography
+          variant={isSmall ? "body1" : "h5"}
           sx={{
-            flex: 1,
-            display: "flex",
-            justifyContent: isSmall ? "flex-start" : "flex-end",
-            mb: 2,
+            color: "primary.light",
+            textAlign: "left",
+            width:'100%',
           }}
         >
-          <Typography
-            variant="h5"
-            sx={{
-              color: "primary.light",
-              textAlign: isSmall ? "left" : "right",
-              zIndex: 2,
-              maxWidth: isSmall ? "100%" : `calc(100% - ${theme.spacing(35)})`,
-            }}
-          >
-            Veți descoperi pescuitul sportiv cu tehnici și echipamente specifice Dunării, locuri mirifice de pescuit
-            într-o natură absolut unică în lume, partide de pescuit în familie și cu prietenii, rețete de mâncare cu
-            pește tradiționale și nu în ultimul rând locuri de cazare aflate în apropierea Dunării.
-          </Typography>
-        </Box>
+          Veți descoperi pescuitul sportiv cu tehnici și echipamente specifice Dunării, locuri mirifice de pescuit
+          într-o natură absolut unică în lume, partide de pescuit în familie și cu prietenii, rețete de mâncare cu pește
+          tradiționale și nu în ultimul rând locuri de cazare aflate în apropierea Dunării.
+        </Typography>
       </Box>
-    </Box>
+    </>
   );
 };
 

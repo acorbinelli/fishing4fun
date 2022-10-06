@@ -1,6 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useCallback, useEffect, FC } from "react";
-import { useSpring, animated,  } from "react-spring";
+import { useSpring, animated } from "react-spring";
 
 interface Props {
   title: string;
@@ -9,9 +9,9 @@ interface Props {
   position: "top" | "bottom";
 }
 
-const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
+const IntroText: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const [boundBoxSpring, boundBoxSpringAPI] = useSpring(() => ({
     from: { x: isSmall ? "10%" : "50%" },
     config: { mass: 5, tension: 350, friction: 40 },
@@ -54,7 +54,7 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
         lineSpringAPI.start({ y: 200 });
       }, 5000);
     }
-  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd,isSmall]);
+  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd, isSmall]);
 
   useEffect(() => {
     startAnimation();
@@ -64,13 +64,14 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
   return (
     <Box
       sx={{
+        mt: 10,
+        ml: 1,
         position: "absolute",
         bottom: position === "bottom" ? "10%" : !isSmall ? "92%" : `calc(100% - ${theme.spacing(8)})`,
-        left: position === "bottom" ? "0%" : !isSmall ? "8%" : "0%",
+        left:  2 ,
         display: "flex",
         overflow: "hidden",
-        width: "80%",
-        zIndex: 3,
+        width: "90%" ,
       }}
     >
       <animated.div style={boundBoxSpring}>
@@ -110,6 +111,7 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
               <animated.div style={titleSpring}>
                 <Typography
                   variant={isSmall ? "h5" : "h3"}
+                  component="span"
                   sx={{ letterSpacing: 5, fontWeight: 500, color: "primary.light" }}
                 >
                   {title.toUpperCase()}
@@ -131,4 +133,4 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
   );
 };
 
-export default AnimatedIntro;
+export default IntroText;

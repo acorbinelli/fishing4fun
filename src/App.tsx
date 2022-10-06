@@ -11,8 +11,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <CssBaseline />
         <Layout>
-          <CssBaseline />
           <Routes>
             {appRoutes.map((route) => (
               <Route key={route.name} path={route.pathName} element={route.element} />

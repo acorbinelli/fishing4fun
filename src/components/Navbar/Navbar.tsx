@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Slide, IconButton, Fade, useMediaQuery, useTheme, Drawer } from "@mui/material";
+import { Box, Button, Slide, IconButton, useMediaQuery, useTheme, Drawer } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { appRoutes } from "routes";
@@ -15,15 +15,19 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   }, [setIsOpen]);
 
-  const onMenuItemClick = useCallback((path: string) => {
-    navigate(path);
-    if (isSmall) setIsOpen(false);
-  }, []);
+  const onMenuItemClick = useCallback(
+    (path: string) => {
+      navigate(path);
+      if (isSmall) setIsOpen(false);
+    },
+    [isSmall, navigate]
+  );
 
   useEffect(() => {
     setTimeout(() => {
       if (!isSmall) setIsOpen(true);
     }, 1000);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -51,7 +55,7 @@ const Navbar = () => {
               flexDirection: "column",
               alignItems: "flex-start",
               position: "absolute",
-              zIndex: 2,
+              zIndex: 23,
               top: "25%",
               transform: "translate(-50%,-50%)",
             }}
@@ -62,7 +66,7 @@ const Navbar = () => {
                   <Button
                     key={index}
                     fullWidth
-                    size="small"
+                    size="large"
                     variant="text"
                     onClick={() => onMenuItemClick(route.pathName)}
                     sx={{
@@ -82,57 +86,55 @@ const Navbar = () => {
         </Slide>
       )}
       {isSmall && (
-        <Drawer
-          anchor="right"
-          PaperProps={{
-            sx: {
-              py: 4,
-              px: 2,
+        <Drawer anchor="right" open={isOpen}>
+          <Box
+            sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end",
               justifyContent: "space-between",
-            },
-          }}
-          open={isOpen}
-        >
-          <IconButton
-            size="large"
-            sx={{
-              border: "1px solid #2C548A",
-              width: (theme) => theme.spacing(5),
-              height: (theme) => theme.spacing(5),
-              zIndex: 11,
             }}
-            onClick={onExpandClick}
           >
-            <CloseIcon color="primary" />
-          </IconButton>
-          {appRoutes.map((route, index) => {
-            if (index > 0) {
-              return (
-                <Button
-                  key={index}
-                  size="small"
-                  variant="text"
-                  onClick={() => onMenuItemClick(route.pathName)}
-                  sx={{
-                    color: "primary",
-                    fontSize: (theme) => theme.typography.h6.fontSize,
-                    borderBottom:
-                      location.pathname.toLowerCase() === route.pathName.toLowerCase() ? "2px solid #2C548A" : "none",
-                  }}
-                >
-                  {route.name}
-                </Button>
-              );
-            }
-            return null;
-          })}
+            <IconButton
+              sx={{
+                border: "1px solid #2C548A",
+                width: (theme) => theme.spacing(4),
+                height: (theme) => theme.spacing(4),
+                zIndex: 11,
+                mt: 2,
+                mr: 2,
+                mb: 8,
+              }}
+              onClick={onExpandClick}
+            >
+              <CloseIcon color="primary" fontSize="small" />
+            </IconButton>
+            {appRoutes.map((route, index) => {
+              if (index > 0) {
+                return (
+                  <Button
+                    key={index}
+                    size="small"
+                    variant={location.pathname.toLowerCase() === route.pathName.toLowerCase() ? "outlined" : "text"}
+                    onClick={() => onMenuItemClick(route.pathName)}
+                    sx={{
+                      color: "primary",
+                      fontSize: (theme) => theme.typography.h6.fontSize,
+                      mx: 4,
+                      mb: 3,
+                    }}
+                  >
+                    {route.name}
+                  </Button>
+                );
+              }
+              return null;
+            })}
+          </Box>
         </Drawer>
       )}
       <>
-        {!isOpen && (
+        {isSmall && !isOpen && (
           <IconButton
             size="large"
             sx={{
@@ -146,22 +148,6 @@ const Navbar = () => {
             onClick={onExpandClick}
           >
             <MenuIcon color="warning" />
-          </IconButton>
-        )}
-        {isOpen && (
-          <IconButton
-            size="large"
-            onClick={onExpandClick}
-            sx={{
-              position: "absolute",
-              left: !isSmall ? (theme) => theme.spacing(5) : `calc(100% - ${theme.spacing(10)})`,
-              top: (theme) => theme.spacing(6),
-              zIndex: 11,
-              transform: "translateY(-50%)",
-              border: "1px solid #ffcc00",
-            }}
-          >
-            <CloseIcon color="warning" />
           </IconButton>
         )}
       </>

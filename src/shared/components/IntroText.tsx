@@ -1,7 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React, { useCallback, useEffect, FC } from "react";
-import { Collapse } from "@mui/material";
-import { useSpring, animated, SpringValues, SpringRef } from "react-spring";
+import { useCallback, useEffect, FC } from "react";
+import { useSpring, animated,  } from "react-spring";
 
 interface Props {
   title: string;
@@ -55,22 +54,23 @@ const AnimatedIntro: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
         lineSpringAPI.start({ y: 200 });
       }, 5000);
     }
-  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd]);
+  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd,isSmall]);
 
   useEffect(() => {
     startAnimation();
+    // eslint-disable-next-line
   }, []);
 
   return (
     <Box
       sx={{
         position: "absolute",
-        bottom: position === "bottom" ? "10%" : !isSmall ? "89%" : `calc(100% - ${theme.spacing(8)})`,
+        bottom: position === "bottom" ? "10%" : !isSmall ? "92%" : `calc(100% - ${theme.spacing(8)})`,
         left: position === "bottom" ? "0%" : !isSmall ? "8%" : "0%",
         display: "flex",
         overflow: "hidden",
         width: "80%",
-        zIndex: 2,
+        zIndex: 3,
       }}
     >
       <animated.div style={boundBoxSpring}>

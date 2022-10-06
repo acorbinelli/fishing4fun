@@ -1,10 +1,7 @@
-import { Box, Button, Typography, useMediaQuery, useTheme, IconButton, Fade } from "@mui/material";
-import { F4F_BLUE_DEFAULT } from "theme";
+import {  useMediaQuery, useTheme, IconButton,} from "@mui/material";
 import Logo from "images/logo/avatar.png";
-import Menu from "images/svgs/menuSVG.svg";
-import { useSpring, animated, SpringValues, SpringRef } from "react-spring";
-import { useCallback, useEffect, useState, FC } from "react";
-import { width } from "@mui/system";
+import { useSpring, animated } from "react-spring";
+import { useCallback, useEffect,  FC } from "react";
 
 interface Props {
   onLogoClick: () => void;
@@ -12,7 +9,7 @@ interface Props {
 
 const LandingLogoButton: FC<Props> = ({ onLogoClick }) => {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const [landingLogoSpring, landingLogoApi] = useSpring(() => ({
     from: {
       width: theme.spacing(isSmall ? 30 : 50),
@@ -76,6 +73,7 @@ const LandingLogoButton: FC<Props> = ({ onLogoClick }) => {
       },
       config: { mass: 5, tension: 350, friction: 40, bounce: 1 },
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

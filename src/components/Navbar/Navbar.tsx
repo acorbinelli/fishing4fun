@@ -9,7 +9,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const onExpandClick = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -28,10 +28,10 @@ const Navbar = () => {
       if (!isSmall) setIsOpen(true);
     }, 1000);
     // eslint-disable-next-line
-  }, []);
+  }, [isSmall]);
 
   return (
-    <Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
+    <>
       {!isSmall && (
         <Slide
           in={isOpen}
@@ -43,6 +43,7 @@ const Navbar = () => {
           timeout={500}
         >
           <Box
+            component="nav"
             sx={{
               background: "linear-gradient(162deg, rgba(6,25,51,1) 0%, rgba(6,25,51,0.5) 39%, rgba(140,189,255,0) 67%)",
               py: 1,
@@ -133,25 +134,23 @@ const Navbar = () => {
           </Box>
         </Drawer>
       )}
-      <>
-        {isSmall && !isOpen && (
-          <IconButton
-            size="large"
-            sx={{
-              position: "absolute",
-              left: !isSmall ? (theme) => theme.spacing(5) : `calc(100% - ${theme.spacing(10)})`,
-              top: (theme) => theme.spacing(6),
-              transform: "translateY(-50%)",
-              border: "1px solid #ffcc00",
-              zIndex: 11,
-            }}
-            onClick={onExpandClick}
-          >
-            <MenuIcon color="warning" />
-          </IconButton>
-        )}
-      </>
-    </Box>
+      {isSmall && !isOpen && (
+        <IconButton
+          size="large"
+          sx={{
+            position: "absolute",
+            left: !isSmall ? (theme) => theme.spacing(5) : `calc(100% - ${theme.spacing(10)})`,
+            top: (theme) => theme.spacing(6),
+            transform: "translateY(-50%)",
+            border: "1px solid #ffcc00",
+            zIndex: 11,
+          }}
+          onClick={onExpandClick}
+        >
+          <MenuIcon color="warning" />
+        </IconButton>
+      )}
+    </>
   );
 };
 

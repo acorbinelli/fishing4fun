@@ -1,11 +1,17 @@
-import { CssBaseline, Box, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route, Navigate, BrowserRouter as Router } from "react-router-dom";
-import { appRoutes } from "./routes";
 import { theme } from "./theme";
-import BG from "images/backgrounds/boat.jpg";
-import BG2 from "images/backgrounds/dunare.jpg";
-import BG3 from "images/backgrounds/ieselnita.jpeg";
+import { Suspense, lazy } from "react";
 import Layout from "components/Layout/Layout";
+
+const LandingPage = lazy(() => import("pages/LandingPage"));
+const Acasa = lazy(() => import("pages/Acasa"));
+const Blog = lazy(() => import("pages/Blog"));
+const Contact = lazy(() => import("pages/Contact"));
+const DespreF4F = lazy(() => import("pages/DespreF4F"));
+const Dunarea = lazy(() => import("pages/Dunarea"));
+const Info = lazy(() => import("pages/Info"));
+const Tutoriale = lazy(() => import("pages/Tutoriale"));
 
 function App() {
   return (
@@ -13,12 +19,19 @@ function App() {
       <Router>
         <CssBaseline />
         <Layout>
-          <Routes>
-            {appRoutes.map((route) => (
-              <Route key={route.name} path={route.pathName} element={route.element} />
-            ))}
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          <Suspense fallback={<div>Loading</div>}>
+            <Routes>
+              <Route path="/acasa" element={<Acasa />} />
+              <Route path="/dunarea" element={<Dunarea />} />
+              <Route path="/tutoriale" element={<Tutoriale />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/info" element={<Info />} />
+              <Route path="/despre-f4f" element={<DespreF4F />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </Router>
     </ThemeProvider>

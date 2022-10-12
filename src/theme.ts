@@ -10,6 +10,7 @@ export const theme = createTheme({
     primary: {
       main: F4F_BLUE_DEFAULT,
       light: F4F_BLUE_LIGHT,
+      dark:F4F_BLUE_DARK,
       contrastText: "#fff",
     },
     secondary: {

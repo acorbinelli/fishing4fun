@@ -1,4 +1,5 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import useMobileDetect from "hooks/useMobileDetect";
 import { useCallback, useEffect, FC } from "react";
 import { useSpring, animated } from "react-spring";
 
@@ -10,8 +11,7 @@ interface Props {
 }
 
 const IntroText: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const { isSmall } = useMobileDetect();
   const [boundBoxSpring, boundBoxSpringAPI] = useSpring(() => ({
     from: { x: isSmall ? "10%" : "50%" },
     config: { mass: 5, tension: 350, friction: 40 },
@@ -54,12 +54,12 @@ const IntroText: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
         lineSpringAPI.start({ y: 200 });
       }, 5000);
     }
-  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd, isSmall]);
+  }, [titleSpringAPI, subtitleSpringApi, lineSpringAPI, boundBoxSpringAPI, hideAtEnd, isSmall,title]);
 
   useEffect(() => {
     startAnimation();
     // eslint-disable-next-line
-  }, []);
+  }, [title]);
 
   return (
     <Box
@@ -67,11 +67,12 @@ const IntroText: FC<Props> = ({ title, subtitle, hideAtEnd, position }) => {
         mt: 10,
         ml: 1,
         position: "absolute",
-        bottom: position === "bottom" ? "10%" : !isSmall ? "92%" : `calc(100% - ${theme.spacing(8)})`,
-        left:  2 ,
+        bottom: (theme) => (position === "bottom" ? "10%" : !isSmall ? "92%" : `calc(100% - ${theme.spacing(8)})`),
+        left: 2,
         display: "flex",
         overflow: "hidden",
-        width: "90%" ,
+        width: "90%",
+        zIndex:100
       }}
     >
       <animated.div style={boundBoxSpring}>

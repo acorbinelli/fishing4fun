@@ -1,15 +1,16 @@
-import { Box, Button, Slide, IconButton, useMediaQuery, useTheme, Drawer } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { Box, Button, Slide, IconButton, Drawer } from "@mui/material";
+import { useCallback, useEffect, useState, FC } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { appRoutes } from "routes";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-const Navbar = () => {
+import useMobileDetect from "hooks/useMobileDetect";
+
+const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const { isSmall } = useMobileDetect();
 
   const onExpandClick = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -56,7 +57,7 @@ const Navbar = () => {
               flexDirection: "column",
               alignItems: "flex-start",
               position: "absolute",
-              zIndex: 23,
+              zIndex: 200,
               top: "25%",
               transform: "translate(-50%,-50%)",
             }}
@@ -101,7 +102,6 @@ const Navbar = () => {
                 border: "1px solid #2C548A",
                 width: (theme) => theme.spacing(4),
                 height: (theme) => theme.spacing(4),
-                zIndex: 11,
                 mt: 2,
                 mr: 2,
                 mb: 8,
@@ -139,11 +139,11 @@ const Navbar = () => {
           size="large"
           sx={{
             position: "absolute",
-            left: !isSmall ? (theme) => theme.spacing(5) : `calc(100% - ${theme.spacing(10)})`,
+            left: !isSmall ? (theme) => theme.spacing(5) : (theme) => `calc(100% - ${theme.spacing(10)})`,
             top: (theme) => theme.spacing(6),
             transform: "translateY(-50%)",
             border: "1px solid #ffcc00",
-            zIndex: 11,
+            zIndex: 200,
           }}
           onClick={onExpandClick}
         >

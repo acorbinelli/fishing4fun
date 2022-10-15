@@ -10,6 +10,7 @@ import Background1 from "images/backgrounds/bg1.jpg";
 import Background2 from "images/backgrounds/bg2.jpg";
 import Background3 from "images/backgrounds/bg3.jpg";
 import Background4 from "images/backgrounds/bg4.jpg";
+import Background5 from "images/backgrounds/bg5.jpg";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
 interface Props {
@@ -165,7 +166,26 @@ const Layout: FC<Props> = ({ children }) => {
         return (
           <>
             <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
-            <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
+            <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}>
+              <Fade in>
+                <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
+                  <LazyLoadImage
+                    alt="Danube Background Image"
+                    src={Background5}
+                    effect="blur"
+                    height="100%"
+                    width="100%"
+                    style={{
+                      opacity: 0.4,
+                      objectFit: "cover",
+                      clipPath: isSmall
+                        ? "polygon(0 0, 100% 0, 100% 31%, 0% 100%)"
+                        : "polygon(0 0, 100% 0, 100% 50%, 0% 100%)",
+                    }}
+                  />
+                </Box>
+              </Fade>
+            </Box>
           </>
         );
       default:

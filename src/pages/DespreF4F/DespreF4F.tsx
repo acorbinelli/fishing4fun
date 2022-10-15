@@ -16,6 +16,7 @@ const DespreF4F = () => {
         justifyContent: "center",
         flexDirection: isSmall ? "column" : "row",
         pt: isSmall ? 5 : 0,
+        pl:isSmall? 0:20,
         zIndex: 100,
         position: "relative",
       }}

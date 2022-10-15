@@ -12,6 +12,7 @@ const Acasa = () => {
       sx={{
         height: "100%",
         display: "flex",
+        pl: isSmall ? 0 : 20,
         flexDirection: "column",
         justifyContent: "center",
         zIndex: 30,

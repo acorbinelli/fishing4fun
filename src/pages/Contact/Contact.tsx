@@ -5,9 +5,11 @@ import UnderConstruction from "components/UnderConstruction";
 import useMobileDetect from "hooks/useMobileDetect";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import useScrollBarStyle from "shared/useScrollBarStyle";
 
 const Contact = () => {
   const { isSmall } = useMobileDetect();
+  const scrollBarStyle = useScrollBarStyle()
 
   const onYoutubeClick = useCallback(() => {
     window.location.href = "https://www.youtube.com/channel/UCAuUBbW9p22VoDlZutn4JYg";
@@ -65,7 +67,9 @@ const Contact = () => {
           sx={{ backgroundColor: "primary.light", borderRadius: 2, mb: 2 }}
           placeholder="Mesaj"
           multiline
+          inputProps={{sx:{...scrollBarStyle}}}
           minRows={6}
+          maxRows={6}
         />
         <Button variant="contained" color="warning">
           Trimite

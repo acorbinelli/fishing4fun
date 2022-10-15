@@ -18,8 +18,8 @@ const Navbar: FC<Props> = ({ isOpen, toggleOpen }) => {
 
   const onMenuItemClick = useCallback(
     (path: string) => {
+      if (isSmall) toggleOpen();
       navigate(path);
-      isSmall && toggleOpen();
     },
     [isSmall, navigate]
   );
@@ -49,7 +49,7 @@ const Navbar: FC<Props> = ({ isOpen, toggleOpen }) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              position: "absolute",
+              position: "fixed",
               zIndex: 200,
               top: "25%",
               transform: "translate(-50%,-50%)",
@@ -128,20 +128,21 @@ const Navbar: FC<Props> = ({ isOpen, toggleOpen }) => {
         </Drawer>
       )}
       {isSmall && !isOpen && (
-        <IconButton
-          size="large"
-          sx={{
-            position: "absolute",
-            left: !isSmall ? (theme) => theme.spacing(5) : (theme) => `calc(100% - ${theme.spacing(10)})`,
-            top: (theme) => theme.spacing(6),
-            transform: "translateY(-50%)",
-            border: "1px solid #ffcc00",
-            zIndex: 200,
-          }}
-          onClick={() => toggleOpen()}
-        >
-          <MenuIcon color="warning" />
-        </IconButton>
+        <Box sx={{ width: "100%", position: "absolute" }}>
+          <IconButton
+            size="large"
+            sx={{
+              mt: 3,
+              position: "fixed",
+              left: "82%",
+              border: "1px solid #ffcc00",
+              zIndex: 200,
+            }}
+            onClick={() => toggleOpen()}
+          >
+            <MenuIcon color="warning" />
+          </IconButton>
+        </Box>
       )}
     </>
   );

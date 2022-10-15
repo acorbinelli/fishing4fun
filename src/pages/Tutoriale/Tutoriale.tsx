@@ -70,6 +70,7 @@ const Tutoriale: FC = () => {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: isSmall ? "column" : "row",
+        pl:isSmall? 0:20,
         pt: isSmall ? 5 : 0,
         zIndex: 100,
         position: "relative",

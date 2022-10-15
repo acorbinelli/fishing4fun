@@ -14,26 +14,52 @@ interface Props {
   videoItem: VideoItem;
 }
 const VideoComponent: FC<Props> = ({ play, onPlay, id, videoItem }) => {
+  const { isSmall } = useMobileDetect();
   return (
-    <Box sx={{ width: "100%", mb: 3, display: "flex", borderBottom: "1px solid white", borderTop: "1px solid white" }}>
-      <ReactPlayer style={{ flex: 0.5 }} controls light playing={play} onPlay={() => onPlay(id)} url={videoItem.url} />
-      <Box display="flex" flexDirection="column" sx={{ ml: 3, flex: 1 }}>
-        <Typography variant="h4" sx={{ color: "primary.light", mb: 2, fontWeight: 600 }}>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        mb:1,
+        flexDirection: isSmall ? "column" : "row",
+      }}
+    >
+      <Box sx={{ height:isSmall? 200:270, flex: isSmall ? "initial" : 0.5 }}>
+        <ReactPlayer
+          style={{ flex: 0.5 }}
+          height="100%"
+          width="100%"
+          controls
+          light
+          playing={play}
+          onPlay={() => onPlay(id)}
+          url={videoItem.url}
+        />
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        sx={{ ml: isSmall ? 0 : 3, flex: 1, borderBottom: "1px solid white", borderTop: "1px solid white", py: 2 }}
+      >
+        <Typography variant={isSmall ? "h6" : "h4"} sx={{ color: "primary.light", mb: 2, fontWeight: 600 }}>
           {videoItem.title}
         </Typography>
         {videoItem.description && (
-          <Box display="flex" sx={{ mb: 2 }}>
-            <Typography variant="h5" sx={{ color: "primary.light", mr: 2, fontWeight: 600 }}>
+          <Box display="flex" sx={{ mb: 2, flexDirection: isSmall ? "column" : "row" }}>
+            <Typography
+              variant={isSmall ? "h6" : "h5"}
+              sx={{ color: "primary.light", mr: 2,mb:2, fontWeight: 600, lineHeight: isSmall ? 1 : 1.2 }}
+            >
               Descriere:
             </Typography>
-            <Typography variant="h5" sx={{ color: "primary.light" }}>
+            <Typography variant={isSmall ? "body1" : "h5"} sx={{ color: "primary.light" }}>
               {videoItem.description}
             </Typography>
           </Box>
         )}
         {videoItem.materials?.length && (
           <Box display="flex" sx={{ mb: 2 }}>
-            <Typography variant="h5" sx={{ color: "primary.light", mr: 2, fontWeight: 600 }}>
+            <Typography variant={isSmall ? "h6" : "h5"} sx={{ color: "primary.light", mr: 2, fontWeight: 600 }}>
               Materiale:
             </Typography>
             <Box display="flex" flexDirection="column">

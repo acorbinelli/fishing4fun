@@ -39,14 +39,15 @@ const Tutoriale: FC = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden",
+        flexDirection: isSmall ? "column" : "row",
+        pt: isSmall ? 5 : 0,
       }}
     >
       <Box
         sx={{
           display: "flex",
-          flexDirection: isSmall ? "column" : "row",
           alignItems: "center",
+          flexDirection:selectedCard===null ?"row":isSmall?"row":"column",
           justifyContent: "center",
         }}
       >
@@ -65,9 +66,9 @@ const Tutoriale: FC = () => {
         />
       </Box>
       <Slide
-        direction="left"
+        direction={isSmall ? "up" : "left"}
         in={selectedCard !== null}
-        timeout={{ enter: 1200, exit: 100 }}
+        timeout={{ enter: 1200, exit: 0 }}
         mountOnEnter
         unmountOnExit
         onAnimationEnd={() => {
@@ -79,26 +80,25 @@ const Tutoriale: FC = () => {
             display: "flex",
             overflow: "auto",
             flexDirection: "column",
-            background: "linear-gradient(162deg, rgba(6,25,51,1) 0%, rgba(6,25,51,0.2) 60% )",
-
+            background: `linear-gradient(162deg, rgba(6,25,51,1) 0%, rgba(6,25,51,${isSmall ? 0.8 : 0.2}) 60% )`,
             py: 3,
             px: 2,
-            my: 10,
-            maxHeight: "80%",
+            my: isSmall ? 2 : 10,
+            maxHeight: isSmall ? "60%" : "80%",
             flex: 1,
           }}
         >
           <Fade in timeout={2000} mountOnEnter unmountOnExit>
             <Box>
-              {videos.map((montura, index) => {
-                if (montura.tutorialType === selectedCard) {
+              {videos.map((video, index) => {
+                if (video.tutorialType === selectedCard) {
                   return (
                     <VideoComponent
                       key={index}
                       play={playingVideoId === index}
                       id={index}
                       onPlay={onPlayVideo}
-                      videoItem={montura}
+                      videoItem={video}
                     />
                   );
                 }

@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState,useCallback,useEffect } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 import Navbar from "components/Navbar/Navbar";
 import Logo from "images/logo/avatar.png";
@@ -18,6 +18,20 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   const location = useLocation();
   const { isSmall } = useMobileDetect();
+  const [isNavOpen,setIsNavOpen] = useState<boolean>(false)
+
+  const toggleNavOpen = useCallback(
+    (value?:boolean) => {
+      if(value){
+        setIsNavOpen(true)
+      }else{
+
+        setIsNavOpen((prev)=>!prev)
+      }
+    },
+    [setIsNavOpen],
+  )
+  
 
   const pageIntroText = useMemo(() => {
     switch (location.pathname.toLowerCase()) {
@@ -45,7 +59,7 @@ const Layout: FC<Props> = ({ children }) => {
       case "/acasa":
         return (
           <>
-            <IntroText title="ACASA" position="top" />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}>
               <Fade in>
                 <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
@@ -71,7 +85,7 @@ const Layout: FC<Props> = ({ children }) => {
       case "/despre-f4f":
         return (
           <>
-            <IntroText title="DESPRE F4F" position="top" />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
             <Box
               sx={{
                 height: "100%",
@@ -105,7 +119,7 @@ const Layout: FC<Props> = ({ children }) => {
       case "/tutoriale":
         return (
           <>
-            <IntroText title="TUTORIALE" position="top" />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}>
               <Fade in>
                 <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
@@ -131,28 +145,28 @@ const Layout: FC<Props> = ({ children }) => {
       case "/dunarea":
         return (
           <>
-            <IntroText title="DUNAREA" position="top" />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/blog":
         return (
           <>
-            <IntroText title="BLOG" position="top" />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/info":
         return (
           <>
-            <IntroText title="INFO" position="top" />
+            <IntroText title={pageIntroText} position="top"toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/contact":
         return (
           <>
-            <IntroText title="CONTACT" position="top" />
+            <IntroText title={pageIntroText} position="top"toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
@@ -160,6 +174,11 @@ const Layout: FC<Props> = ({ children }) => {
         return <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>;
     }
   };
+
+  useEffect(() => {
+    !isSmall && setIsNavOpen(true);
+    // eslint-disable-next-line
+  }, [isSmall]);
 
   return (
     <Box
@@ -174,7 +193,7 @@ const Layout: FC<Props> = ({ children }) => {
     >
       {location.pathname !== "/" && (
         <>
-          <Navbar />
+          <Navbar isOpen={isNavOpen} toggleOpen={toggleNavOpen}/>
           <Fade in style={{ position: "absolute", zIndex: 2, bottom: "0%", right: "0%", opacity: 1 }}>
             <img width={isSmall ? 200 : 300} height={isSmall ? 200 : 300} src={Logo} alt="4f4 logo" />
           </Fade>
@@ -191,7 +210,7 @@ const Layout: FC<Props> = ({ children }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: (theme) => theme.spacing(5),
+          height: (theme) => theme.spacing(2),
           position: "absolute",
           bottom: 0,
           zIndex: 2,

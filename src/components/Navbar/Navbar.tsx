@@ -6,30 +6,23 @@ import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import useMobileDetect from "hooks/useMobileDetect";
 
-const Navbar: FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+interface Props {
+  isOpen: boolean;
+  toggleOpen: (value?: boolean) => void;
+}
+
+const Navbar: FC<Props> = ({ isOpen, toggleOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isSmall } = useMobileDetect();
 
-  const onExpandClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, [setIsOpen]);
-
   const onMenuItemClick = useCallback(
     (path: string) => {
       navigate(path);
-      if (isSmall) setIsOpen(false);
+      isSmall && toggleOpen();
     },
     [isSmall, navigate]
   );
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isSmall) setIsOpen(true);
-    }, 1000);
-    // eslint-disable-next-line
-  }, [isSmall]);
 
   return (
     <>
@@ -88,7 +81,7 @@ const Navbar: FC = () => {
         </Slide>
       )}
       {isSmall && (
-        <Drawer anchor="right" open={isOpen}>
+        <Drawer anchor="right" onClose={() => toggleOpen()} open={isOpen}>
           <Box
             sx={{
               display: "flex",
@@ -106,7 +99,7 @@ const Navbar: FC = () => {
                 mr: 2,
                 mb: 8,
               }}
-              onClick={onExpandClick}
+              onClick={() => toggleOpen()}
             >
               <CloseIcon color="primary" fontSize="small" />
             </IconButton>
@@ -145,7 +138,7 @@ const Navbar: FC = () => {
             border: "1px solid #ffcc00",
             zIndex: 200,
           }}
-          onClick={onExpandClick}
+          onClick={() => toggleOpen()}
         >
           <MenuIcon color="warning" />
         </IconButton>

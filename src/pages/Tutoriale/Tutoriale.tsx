@@ -41,6 +41,8 @@ const Tutoriale: FC = () => {
         justifyContent: "center",
         flexDirection: isSmall ? "column" : "row",
         pt: isSmall ? 5 : 0,
+        zIndex:100,
+        position:'relative'
       }}
     >
       <Box

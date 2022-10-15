@@ -10,16 +10,18 @@ const DespreF4F = () => {
   return (
     <Box
       sx={{
+        width: "100%",
+        height: "100%",
         display: "flex",
-        flexDirection: "column",
-        overflowY: "auto",
-        height: (theme) => `calc(100% - ${theme.spacing(25)})`,
-        my: 15,
-        "&::-webkit-scrollbar": {
-          visibility: "hidden",
-        },
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: isSmall ? "column" : "row",
+        pt: isSmall ? 5 : 0,
+        zIndex:100,
+        position:'relative'
       }}
     >
+      <Box sx={{maxHeight:(theme) => `calc(100% - ${theme.spacing(25)})`,overflow:'auto'}}>
       <Typography
         variant={isSmall ? "h5" : "h3"}
         sx={{
@@ -96,6 +98,8 @@ const DespreF4F = () => {
         împreună îndrumare, sprijin și înțelegere pentru începători, dar și pentru avansați, formare de echipe, pescuit
         în familie și cu prietenii. Echipa Fishing4Fun vă urează fire întinse și nu uitați, pescuiți din plăcere!
       </Typography>
+      </Box>
+      
     </Box>
   );
 };

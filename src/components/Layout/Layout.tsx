@@ -1,4 +1,4 @@
-import { FC, useMemo, useState,useCallback,useEffect } from "react";
+import { FC, useMemo, useState, useCallback, useEffect } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 import Navbar from "components/Navbar/Navbar";
 import Logo from "images/logo/avatar.png";
@@ -18,20 +18,18 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   const location = useLocation();
   const { isSmall } = useMobileDetect();
-  const [isNavOpen,setIsNavOpen] = useState<boolean>(false)
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
 
   const toggleNavOpen = useCallback(
-    (value?:boolean) => {
-      if(value){
-        setIsNavOpen(true)
-      }else{
-
-        setIsNavOpen((prev)=>!prev)
+    (value?: boolean) => {
+      if (value) {
+        setIsNavOpen(true);
+      } else {
+        setIsNavOpen((prev) => !prev);
       }
     },
-    [setIsNavOpen],
-  )
-  
+    [setIsNavOpen]
+  );
 
   const pageIntroText = useMemo(() => {
     switch (location.pathname.toLowerCase()) {
@@ -59,7 +57,7 @@ const Layout: FC<Props> = ({ children }) => {
       case "/acasa":
         return (
           <>
-            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}>
               <Fade in>
                 <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
@@ -85,13 +83,13 @@ const Layout: FC<Props> = ({ children }) => {
       case "/despre-f4f":
         return (
           <>
-            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box
               sx={{
                 height: "100%",
                 width: "100%",
                 position: "absolute",
-                zIndex: 3,
+                zIndex: 2,
                 backgroundColor: "rgba(0,0,0,0.5)",
               }}
             >
@@ -119,7 +117,7 @@ const Layout: FC<Props> = ({ children }) => {
       case "/tutoriale":
         return (
           <>
-            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}>
               <Fade in>
                 <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
@@ -145,28 +143,28 @@ const Layout: FC<Props> = ({ children }) => {
       case "/dunarea":
         return (
           <>
-            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/blog":
         return (
           <>
-            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen}/>
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/info":
         return (
           <>
-            <IntroText title={pageIntroText} position="top"toggleOpen={toggleNavOpen} />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
       case "/contact":
         return (
           <>
-            <IntroText title={pageIntroText} position="top"toggleOpen={toggleNavOpen} />
+            <IntroText title={pageIntroText} position="top" toggleOpen={toggleNavOpen} />
             <Box sx={{ height: "100%", width: "100%", position: "absolute", zIndex: 2 }}></Box>
           </>
         );
@@ -188,21 +186,20 @@ const Layout: FC<Props> = ({ children }) => {
         backgroundPosition: "center",
         flex: 1,
         height: "100vh",
+        position: "relative",
       }}
       component="main"
     >
       {location.pathname !== "/" && (
         <>
-          <Navbar isOpen={isNavOpen} toggleOpen={toggleNavOpen}/>
+          <Navbar isOpen={isNavOpen} toggleOpen={toggleNavOpen} />
           <Fade in style={{ position: "absolute", zIndex: 2, bottom: "0%", right: "0%", opacity: 1 }}>
             <img width={isSmall ? 200 : 300} height={isSmall ? 200 : 300} src={Logo} alt="4f4 logo" />
           </Fade>
         </>
       )}
       {<BackgroundElement />}
-      <Box sx={{ width: "100%", height: "100%", pl: isSmall ? 3 : 20, pr: 3, position: "absolute", zIndex: 102 }}>
-        {children}
-      </Box>
+      <Box sx={{ width: "100%", height: "100%", pl: isSmall ? 3 : 20, pr: 3, zIndex: 102 }}>{children}</Box>
 
       <Box
         sx={{
@@ -210,7 +207,6 @@ const Layout: FC<Props> = ({ children }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: (theme) => theme.spacing(2),
           position: "absolute",
           bottom: 0,
           zIndex: 2,

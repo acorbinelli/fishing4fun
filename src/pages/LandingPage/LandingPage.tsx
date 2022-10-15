@@ -20,6 +20,7 @@ const LandingPage = () => {
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
+        zIndex:100
       }}
     >
       <LandingLogoButton onLogoClick={onLogoClick} />

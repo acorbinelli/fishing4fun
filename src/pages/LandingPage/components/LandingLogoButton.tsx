@@ -1,18 +1,19 @@
-import {  useMediaQuery, useTheme, IconButton,} from "@mui/material";
+import { IconButton,useTheme } from "@mui/material";
 import Logo from "images/logo/avatar.png";
 import { useSpring, animated } from "react-spring";
-import { useCallback, useEffect,  FC } from "react";
+import { useCallback, useEffect, FC } from "react";
+import useMobileDetect from "hooks/useMobileDetect";
 
 interface Props {
   onLogoClick: () => void;
 }
 
 const LandingLogoButton: FC<Props> = ({ onLogoClick }) => {
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const { isSmall } = useMobileDetect();
+  const theme = useTheme()
   const [landingLogoSpring, landingLogoApi] = useSpring(() => ({
     from: {
-      width: theme.spacing(isSmall ? 30 : 50),
+      width:theme.spacing(isSmall ? 30 : 50),
       height: theme.spacing(isSmall ? 30 : 50),
       rotateY: 0,
       rotateX: 0,

@@ -1,34 +1,28 @@
-import { Box, Button, Slide, IconButton, useMediaQuery, useTheme, Drawer } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { Box, Button, Slide, IconButton, Drawer } from "@mui/material";
+import { useCallback, useEffect, useState, FC } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { appRoutes } from "routes";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+import useMobileDetect from "hooks/useMobileDetect";
+
+interface Props {
+  isOpen: boolean;
+  toggleOpen: (value?: boolean) => void;
+}
+
+const Navbar: FC<Props> = ({ isOpen, toggleOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const onExpandClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, [setIsOpen]);
+  const { isSmall } = useMobileDetect();
 
   const onMenuItemClick = useCallback(
     (path: string) => {
       navigate(path);
-      if (isSmall) setIsOpen(false);
+      isSmall && toggleOpen();
     },
     [isSmall, navigate]
   );
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isSmall) setIsOpen(true);
-    }, 1000);
-    // eslint-disable-next-line
-  }, [isSmall]);
 
   return (
     <>
@@ -56,7 +50,7 @@ const Navbar = () => {
               flexDirection: "column",
               alignItems: "flex-start",
               position: "absolute",
-              zIndex: 23,
+              zIndex: 200,
               top: "25%",
               transform: "translate(-50%,-50%)",
             }}
@@ -87,7 +81,7 @@ const Navbar = () => {
         </Slide>
       )}
       {isSmall && (
-        <Drawer anchor="right" open={isOpen}>
+        <Drawer anchor="right" onClose={() => toggleOpen()} open={isOpen}>
           <Box
             sx={{
               display: "flex",
@@ -101,12 +95,11 @@ const Navbar = () => {
                 border: "1px solid #2C548A",
                 width: (theme) => theme.spacing(4),
                 height: (theme) => theme.spacing(4),
-                zIndex: 11,
                 mt: 2,
                 mr: 2,
                 mb: 8,
               }}
-              onClick={onExpandClick}
+              onClick={() => toggleOpen()}
             >
               <CloseIcon color="primary" fontSize="small" />
             </IconButton>
@@ -139,13 +132,13 @@ const Navbar = () => {
           size="large"
           sx={{
             position: "absolute",
-            left: !isSmall ? (theme) => theme.spacing(5) : `calc(100% - ${theme.spacing(10)})`,
+            left: !isSmall ? (theme) => theme.spacing(5) : (theme) => `calc(100% - ${theme.spacing(10)})`,
             top: (theme) => theme.spacing(6),
             transform: "translateY(-50%)",
             border: "1px solid #ffcc00",
-            zIndex: 11,
+            zIndex: 200,
           }}
-          onClick={onExpandClick}
+          onClick={() => toggleOpen()}
         >
           <MenuIcon color="warning" />
         </IconButton>

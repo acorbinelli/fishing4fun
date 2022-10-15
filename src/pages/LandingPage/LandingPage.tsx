@@ -23,7 +23,7 @@ const LandingPage = () => {
       }}
     >
       <LandingLogoButton onLogoClick={onLogoClick} />
-      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd position="bottom" />
+      <IntroText title="Fishing4Fun" subtitle="Bun venit pe site-ul nostru" hideAtEnd position="bottom" toggleOpen={()=>{}}/>
     </Box>
   );
 };

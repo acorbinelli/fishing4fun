@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import IntroText from "shared/components/IntroText";
-const Contact = () => {
-  return (
+import UnderConstruction from "components/UnderConstruction";
 
-      <Box>MAIN</Box>
-  );
+const Contact = () => {
+  return <UnderConstruction />;
+
 };
 
 export default Contact;

@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider,CircularProgress,Box } from "@mui/material";
 import { Routes, Route, Navigate, BrowserRouter as Router } from "react-router-dom";
 import { theme } from "./theme";
 import { Suspense, lazy } from "react";
@@ -19,7 +19,7 @@ function App() {
       <Router>
         <CssBaseline />
         <Layout>
-          <Suspense fallback={<div>Loading</div>}>
+          <Suspense fallback={<Box sx={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}><CircularProgress color='warning'/></Box>}>
             <Routes>
               <Route path="/acasa" element={<Acasa />} />
               <Route path="/dunarea" element={<Dunarea />} />

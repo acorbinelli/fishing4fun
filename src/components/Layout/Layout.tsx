@@ -190,16 +190,27 @@ const Layout: FC<Props> = ({ children }) => {
       }}
       component="main"
     >
-      {location.pathname !== "/" && (
-        <>
-          <Navbar isOpen={isNavOpen} toggleOpen={toggleNavOpen} />
+      <>
+        <Navbar isOpen={isNavOpen} toggleOpen={toggleNavOpen} />
+        {location.pathname !== "/" && (
           <Fade in style={{ position: "absolute", zIndex: 2, bottom: "0%", right: "0%", opacity: 1 }}>
             <img width={isSmall ? 200 : 300} height={isSmall ? 200 : 300} src={Logo} alt="4f4 logo" />
           </Fade>
-        </>
-      )}
+        )}
+      </>
+
       {<BackgroundElement />}
-      <Box sx={{ width: "100%", height: "100%", pl: isSmall ? 3 : 20, pr: 3, zIndex: 102 }}>{children}</Box>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          pl: location.pathname === "/" ? 0 : isSmall ? 3 : 20,
+          pr: location.pathname === "/" ? 0 : 3,
+          zIndex: 102,
+        }}
+      >
+        {children}
+      </Box>
 
       <Box
         sx={{

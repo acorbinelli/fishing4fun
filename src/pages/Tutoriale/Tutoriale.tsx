@@ -1,20 +1,20 @@
-import { Box, Typography, Button, Fade, Paper, useTheme, Slide } from "@mui/material";
+import { Box, Fade, Paper, Slide, Badge } from "@mui/material";
 import useMobileDetect from "hooks/useMobileDetect";
-import PhishingIcon from "@mui/icons-material/Phishing";
-import SetMealIcon from "@mui/icons-material/SetMeal";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Card from "./components/Card";
-import { useCallback, useState, FC } from "react";
+import { useCallback, useState, FC, useEffect } from "react";
 import { Tutorial } from "types/videoItemTypes";
-import ReactPlayer from "react-player";
 import VideoComponent from "./components/VideoComponent";
 import { videos } from "mocks/Tutorials/videos";
+import useScrollBarStyle from "shared/useScrollBarStyle";
 
 const Tutoriale: FC = () => {
   const { isSmall } = useMobileDetect();
-  const theme = useTheme();
+  const scrollBarStyle = useScrollBarStyle();
   const [selectedCard, setSelectedCard] = useState<Tutorial | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<Number | null>(null);
+  const [momeliCount, setMomeliCount] = useState<number>(0);
+  const [monturiCount, setMonturiCount] = useState<number>(0);
+  const [reteteCount, setReteteCount] = useState<number>(0);
 
   const onCardSelect = useCallback(
     (tutorial: Tutorial) => {
@@ -31,6 +31,36 @@ const Tutoriale: FC = () => {
     setPlayingVideoId(id);
   }, []);
 
+  useEffect(() => {
+    let newMomeliCount: number = 0;
+    let newMonturiCount: number = 0;
+    let newReteteCount: number = 0;
+
+    videos.forEach((video) => {
+      switch (video.tutorialType) {
+        case Tutorial.MOMEALA: {
+          newMomeliCount++;
+          return;
+        }
+        case Tutorial.MONTURA: {
+          newMonturiCount++;
+          return;
+        }
+        case Tutorial.RETETA_CULINARA: {
+          newReteteCount++;
+          return;
+        }
+        default:
+          return;
+      }
+    });
+
+    setMomeliCount(newMomeliCount);
+    setMonturiCount(newMonturiCount);
+    setReteteCount(newReteteCount);
+    // eslint-disable-next-line
+  }, [videos]);
+
   return (
     <Box
       sx={{
@@ -41,31 +71,55 @@ const Tutoriale: FC = () => {
         justifyContent: "center",
         flexDirection: isSmall ? "column" : "row",
         pt: isSmall ? 5 : 0,
-        zIndex:100,
-        position:'relative'
+        zIndex: 100,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
-          flexDirection:selectedCard===null ?"row":isSmall?"row":"column",
+          alignItems: "flex-end",
+          flexDirection: selectedCard === null ? "row" : isSmall ? "row" : "column",
           justifyContent: "center",
         }}
       >
-        <Card
-          buttonText="monturi"
-          tutorialType={Tutorial.MONTURA}
-          selectedCard={selectedCard}
-          onSelect={onCardSelect}
-        />
-        <Card buttonText="momeli" tutorialType={Tutorial.MOMEALA} selectedCard={selectedCard} onSelect={onCardSelect} />
-        <Card
-          buttonText="retete culinare"
-          tutorialType={Tutorial.RETETA_CULINARA}
-          selectedCard={selectedCard}
-          onSelect={onCardSelect}
-        />
+        <Badge
+          sx={{ "& .MuiBadge-badge": { right: "10%", top: 2, fontWeight: 900, fontSize: 15, color: "primary.main" } }}
+          color="warning"
+          badgeContent={momeliCount}
+        >
+          <Card
+            buttonText="momeli"
+            tutorialType={Tutorial.MOMEALA}
+            selectedCard={selectedCard}
+            onSelect={onCardSelect}
+          />
+        </Badge>
+        <Badge
+          sx={{ "& .MuiBadge-badge": { right: "10%", top: 2, fontWeight: 900, fontSize: 15, color: "primary.main" } }}
+          color="warning"
+          badgeContent={monturiCount}
+        >
+          <Card
+            buttonText="monturi"
+            tutorialType={Tutorial.MONTURA}
+            selectedCard={selectedCard}
+            onSelect={onCardSelect}
+          />
+        </Badge>
+        <Badge
+          sx={{ "& .MuiBadge-badge": { right: "12%", top: 2, fontWeight: 900, fontSize: 15, color: "primary.main" } }}
+          color="warning"
+          badgeContent={reteteCount}
+        >
+          <Card
+            buttonText="retete culinare"
+            tutorialType={Tutorial.RETETA_CULINARA}
+            selectedCard={selectedCard}
+            onSelect={onCardSelect}
+          />
+        </Badge>
       </Box>
       <Slide
         direction={isSmall ? "up" : "left"}
@@ -79,6 +133,7 @@ const Tutoriale: FC = () => {
       >
         <Paper
           sx={{
+            ...scrollBarStyle,
             display: "flex",
             overflow: "auto",
             flexDirection: "column",
